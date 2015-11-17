@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="myCanvas" width="800" height="500" style="border:5px solid #000000";>
+
+</canvas>
+<form><left>
+<input type="button"  value="Rectangle" onclick="rectan()" >
+<input type ="button" value = "pencil" onclick = "pencil()">
+<input type ="button" value = "circle" onclick = "circle()">
+<input type = "button" value = "line" onclick = "line()">
+<input type = "button" value = "spray"onclick = "spray()">
+<input type = "button" value = "Eraser" onclick = "eraser()"> 
+<input type = "button" value = "reset" onclick = "clear_screen()">
+<input type = "button" value = "width++" onclick = "width_inc()">
+<input type = "button" value = "width--" onclick = "width_dec()"> 
+<input type = "button" value = "reset_width" onclick = "reset_width()"><input type = "button" value = "save" onclick = "save()"> 
+<input type = "radio"  value = "1" name = "fille"  onclick = "fill()">Fill
+<input type = "radio" value = "0" name = "fille" onclick = "outline()">Outline 
+</left> </form>
+<table>
+<center>
+<table border=2 bgcolor=#FFFFFF align="left">
+<td><button onclick="color('black')" style="background-color:black; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('blue')" style="background-color:blue; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('green')" style="background-color:green; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('AliceBlue')" style="background-color:AliceBlue; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('brown')" style="background-color: brown; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('BlueViolet')" style="background-color:BlueViolet ; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('Coral')" style="background-color:Coral; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('Orange')" style="background-color:Orange; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#FFFFFF')" style="background-color:#FFFFFF; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('Orchid')" style="background-color:Orchid; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('red')" style="background-color:red; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#E0E0E0')" style="background-color:#E0E0E0; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#555000')" style="background-color:#555000; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('purple')" style="background-color:purple; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#0fffff')" style="background-color:#0fffff; height: 25px; width: 25px;"></button></td>
+<tr>
+<td><button onclick="color('tan')" style="background-color:tan; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('teal')" style="background-color:teal; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('magenta')" style="background-color:magenta; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('palegreen')" style="background-color:palegreen; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('lime')" style="background-color:lime; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#bfffff')" style="background-color:#bfffff; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('686868')" style="background-color:#686868; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('limegreen')" style="background-color:limegreen; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('maroon')" style="background-color:maroon; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('MediumSeaGreen')" style="background-color:mediumseagreen; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('MidnightBlue')" style="background-color:midnightblue; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('orangered')" style="background-color:orangered; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('yellow')" style="background-color:yellow; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#909090')" style="background-color:#909090; height: 25px; width: 25px;"></button></td>
+<td><button onclick="color('#333333')" style="background-color:#333333; height: 25px; width: 25px;"></button></td>
+</tr>
+</table></center> 
+<script>
+document.body.background ='paint.jpg';
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext('2d');
+var pix_width = 1
+var flag = 0;
+function fill(){
+   flag = 1;
+}
+function outline(){
+   flag = 0;
+}  
+function width_inc(){
+   if(pix_width < 20){
+       pix_width = pix_width+1;
+       ctx.lineWidth = pix_width;
+   }
+}   
+function color(choosed_colour){
+       ctx.strokeStyle = choosed_colour;
+       ctx.fillStyle = choosed_colour;
+}
+function width_dec(){
+   if(pix_width >= 1){
+       pix_width = pix_width-1
+       ctx.lineWidth = pix_width;
+  }
+} 
+function reset_width(){
+     ctx.lineWidth = 1;
+}
+function clear_screen(){
+     ctx.clearRect(0,0,myCanvas.width,myCanvas.height);
+}      
+function save(){
+     var save_img = c.toDataURL("image/png");
+     window.location = save_img;
+} 
+function rectan(){
+   /* c.addEventListener("mousedown",rect_down,false);
+    c.addEventListener("mousemove", rect_move,false);
+    c.addEventListener("mouseup", rect_up,false );*/
+    c.onmousedown = rect_down;
+    c.onmousemove = rect_move;
+    c.onmouseup = rect_up;
+    var start_x,start_y,pos;
+//    var rect_flag ;
+    function rect_down(event){
+       pos = ctx.getImageData(0,0,myCanvas.width,myCanvas.height);
+       start_x = event.x;
+       start_y = event.y;
+       rect_flag = true;  
+    }
+    function rect_up(event){
+       rect_flag = false;
+    }
+    function rect_move(event){
+      if(rect_flag){
+          ctx.putImageData(pos,0,0);
+          endx = event.x;
+          endy = event.y;
+          width = endx - start_x;
+          height = endy - start_y; 
+          if(flag == 1)
+             ctx.fillRect(start_x,start_y,width,height);
+          else
+             ctx.strokeRect(start_x,start_y,width,height); 
+      }
+   }    
+            
+}
+function circle(){
+  /*  c.addEventListener("mousedown",cir_down,false);
+    c.addEventListener("mousemove",cir_move,false);
+    c.addEventListener("mouseup",cir_up,false);*/
+    c.onmousedown = cir_down;
+    c.onmousemove = cir_move;
+    c.onmouseup = cir_up;
+    //  var cir_flag ;
+    function cir_down(event){
+         pos = ctx.getImageData(0,0,myCanvas.width,myCanvas.height);
+         start_x = event.x;
+         start_y = event.y;
+         cir_flag = true;
+    }
+    function cir_up(){
+         cir_flag = false;
+    }
+    function cir_move(event){
+       if (cir_flag){        
+           ctx.putImageData(pos,0,0);
+           end_x = event.x;
+           end_y = event.y;
+           ctx.beginPath();
+           ctx.arc(Math.abs(start_x+end_x)/2,Math.abs(start_y+end_y)/2,Math.sqrt(Math.pow(end_x-start_x,2)+Math.pow(end_y-start_y,2))/2,0,Math.PI*2,true);
+            ctx.closePath();
+            ctx.stroke(); 
+            if(flag == 1){
+               ctx.fill()
+            }  
+         }
+     }
+}
+    
+function line(){
+   /*c.addEventListener("mousedown", line_down,false);
+   c.addEventListener("mousemove", line_move,false);
+   c.addEventListener("mouseup" ,line_up,false);*/
+   c.onmousedown = line_down;
+   c.onmousemove = line_move;
+   c.onmouseup = line_up;
+   var startx,starty;
+  // var line_flag 
+   var pos;
+   function line_down(event){
+       pos = ctx.getImageData(0,0,myCanvas.width,myCanvas.height);
+       startx = event.x;
+       starty = event.y;
+       line_flag = true;  
+   }
+   function line_up(event){
+       line_flag = false;
+   }
+   function line_move(event){
+       if(line_flag){
+           ctx.putImageData(pos,0,0)   
+           endx = event.x;
+           endy = event.y;
+           ctx.beginPath();
+           ctx.moveTo(startx,starty); 
+           ctx.lineTo(endx,endy); 
+           ctx.stroke();
+           ctx.closePath();
+        }
+   }
+}
+
+function pencil(){
+/*    c.addEventListener("mousedown",pencil_down,false);
+    c.addEventListener("mousemove",pencil_move,false);
+    c.addEventListener("mouseup",pencil_up,false);*/
+    c.onmousedown = pencil_down;
+    c.onmousemove = pencil_move;
+    c.onmouseup = pencil_up;
+     var startx,starty
+  //   var pencil_flag;
+     function pencil_down(e){
+         startx = e.x;
+         starty = e.y;
+         pencil_flag = true;
+     }
+     function pencil_move(event){
+         if(pencil_flag){
+             endx = event.x;
+             endy = event.y;
+             ctx.beginPath();
+             ctx.moveTo(startx,starty);
+             ctx.lineTo(endx,endy);
+             ctx.stroke();
+             ctx.closePath();
+             startx = endx;
+             starty = endy;
+          }
+      }
+      function pencil_up(event){
+          pencil_flag = false;
+      }
+}    
+function spray(){
+   /* c.addEventListener("mousedown",spray_down,false);
+    c.addEventListener("mouseup",spray_up,false);
+    c.addEventListener("mousemove",spray_move,false);*/
+    c.onmousedown =  spray_down;
+    c.onmouseup = spray_up;
+    c.onmousemove = spray_move;
+    var startx,starty;
+//    var spray_flag ;
+    function spray_down(event){
+       stx = event.x;
+       sty = event.y;
+       spray_flag = true;
+       for(var i =0;i< 10; i++){
+            ctx.fillRect(stx+i,sty+i,1.5,1.5);
+            ctx.fillRect(stx-i,sty-i,1.5,1.5);
+            ctx.fillRect(stx-i,sty+i,1.5,1.5);
+            ctx.fillRect(stx+i,sty-i,1.5,1.5);
+            ctx.fillRect(stx+i,sty,1.5,1.5);
+            ctx.fillRect(stx,sty-i,1.5,1.5);
+            ctx.fillRect(stx,sty+i,1.5,1.5); 
+            ctx.fillRect(stx-i,sty,1.5,1.5); 
+       }
+       ctx.beginPath();  
+       for(var i =0; i< 15;i++){
+           ctx.arc(stx+i, sty+i, 1.2, 0, Math.PI*2, true); 
+           ctx.arc(stx+i, sty-i, 1.2, 0, Math.PI*2, true);
+           ctx.arc(stx-i, sty+i, 1.2, 0, Math.PI*2, true); 
+           ctx.arc(stx-i, sty-i,1.2, 0, Math.PI*2, true);
+           ctx.arc(stx+i, sty-i, 1.2, 0, Math.PI*2, true);
+           ctx.arc(stx+i, sty, 1.2, 0, Math.PI*2, true);
+           ctx.arc(stx-i, sty, 1.2, 0, Math.PI*2, true);
+           ctx.arc(stx, sty-i, 1.2, 0, Math.PI*2, true);
+           ctx.arc(stx, sty+i, 1.2, 0, Math.PI*2, true);
+       }
+       ctx.closePath();
+    }
+    function spray_up (event){
+          spray_flag = false;
+    }
+    function spray_move(event){
+          if(spray_flag) {
+             ex = event.x;
+             ey = event.y;
+             for(var i=0; i< 20; i++){
+                 ctx.fillRect(ex+i,ey+i,1,1);
+                 ctx.fillRect(ex-i,ey-i,1,1);
+                 ctx.fillRect(ex-i,ey+i,1,1);
+                 ctx.fillRect(ex+i,ey-i,1,1);
+                 ctx.fillRect(ex+i,ey,1,1);
+                 ctx.fillRect(ex,ey+i,1,1);                     
+                 ctx.fillRect(ex,ey-i,1,1);
+                 ctx.fillRect(ex-i,ey,1,1);
+              }
+              ctx.beginPath();
+              for(var i=0; i<15;i++){
+                 ctx.arc(ex+i,ey+i,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex+i,ey-i,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex-i,ey+i,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex-i,ey-i,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex+i,ey,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex-i,ey,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex,ey+i,1.2,0,Math.PI*2,true);
+                 ctx.arc(ex,ey-i,1.2,0,Math.PI*2,true);
+              }          
+          }
+          ctx.closePath();
+          ctx.fill()
+      }
+}
+function eraser(){
+    /* c.addEventListener("mouseup",eraser_up,false);
+     c.addEventListener("mousemove",eraser_move,false);
+     c.addEventListener("mousedown",eraser_down,false);*/
+     c.onmouseup = eraser_up;
+     c.onmousedown = eraser_down;
+     c.onmousemove = eraser_move 
+    // var eraser_flag;
+     function eraser_down(event){
+          eraser_flag = true;
+     }
+     function eraser_move(event){
+         if(eraser_flag){
+             ptx = event.x;
+             pty = event.y;
+             ctx.clearRect(ptx,pty,15,15);
+          }
+     }
+     function eraser_up(event){
+          eraser_flag = false;
+     }
+}   
+   
+</script>
+
+</body>
+</html>
+
