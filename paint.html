@@ -55,7 +55,6 @@
 </tr>
 </table></center> 
 <script>
-document.body.background ='paint.jpg';
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext('2d');
 var pix_width = 1
@@ -93,14 +92,10 @@ function save(){
      window.location = save_img;
 } 
 function rectan(){
-   /* c.addEventListener("mousedown",rect_down,false);
-    c.addEventListener("mousemove", rect_move,false);
-    c.addEventListener("mouseup", rect_up,false );*/
     c.onmousedown = rect_down;
     c.onmousemove = rect_move;
     c.onmouseup = rect_up;
     var start_x,start_y,pos;
-//    var rect_flag ;
     function rect_down(event){
        pos = ctx.getImageData(0,0,myCanvas.width,myCanvas.height);
        start_x = event.x;
@@ -126,13 +121,11 @@ function rectan(){
             
 }
 function circle(){
-  /*  c.addEventListener("mousedown",cir_down,false);
-    c.addEventListener("mousemove",cir_move,false);
-    c.addEventListener("mouseup",cir_up,false);*/
+  
     c.onmousedown = cir_down;
     c.onmousemove = cir_move;
     c.onmouseup = cir_up;
-    //  var cir_flag ;
+    
     function cir_down(event){
          pos = ctx.getImageData(0,0,myCanvas.width,myCanvas.height);
          start_x = event.x;
@@ -159,14 +152,10 @@ function circle(){
 }
     
 function line(){
-   /*c.addEventListener("mousedown", line_down,false);
-   c.addEventListener("mousemove", line_move,false);
-   c.addEventListener("mouseup" ,line_up,false);*/
    c.onmousedown = line_down;
    c.onmousemove = line_move;
    c.onmouseup = line_up;
    var startx,starty;
-  // var line_flag 
    var pos;
    function line_down(event){
        pos = ctx.getImageData(0,0,myCanvas.width,myCanvas.height);
@@ -192,14 +181,10 @@ function line(){
 }
 
 function pencil(){
-/*    c.addEventListener("mousedown",pencil_down,false);
-    c.addEventListener("mousemove",pencil_move,false);
-    c.addEventListener("mouseup",pencil_up,false);*/
     c.onmousedown = pencil_down;
     c.onmousemove = pencil_move;
     c.onmouseup = pencil_up;
      var startx,starty
-  //   var pencil_flag;
      function pencil_down(e){
          startx = e.x;
          starty = e.y;
@@ -223,83 +208,51 @@ function pencil(){
       }
 }    
 function spray(){
-   /* c.addEventListener("mousedown",spray_down,false);
-    c.addEventListener("mouseup",spray_up,false);
-    c.addEventListener("mousemove",spray_move,false);*/
     c.onmousedown =  spray_down;
     c.onmouseup = spray_up;
     c.onmousemove = spray_move;
-    var startx,starty;
-//    var spray_flag ;
+    //var startx,starty;
+    var spray_flag =false; 
     function spray_down(event){
        stx = event.x;
        sty = event.y;
-       spray_flag = true;
-       for(var i =0;i< 10; i++){
-            ctx.fillRect(stx+i,sty+i,1.5,1.5);
-            ctx.fillRect(stx-i,sty-i,1.5,1.5);
-            ctx.fillRect(stx-i,sty+i,1.5,1.5);
-            ctx.fillRect(stx+i,sty-i,1.5,1.5);
-            ctx.fillRect(stx+i,sty,1.5,1.5);
-            ctx.fillRect(stx,sty-i,1.5,1.5);
-            ctx.fillRect(stx,sty+i,1.5,1.5); 
-            ctx.fillRect(stx-i,sty,1.5,1.5); 
-       }
-       ctx.beginPath();  
-       for(var i =0; i< 15;i++){
-           ctx.arc(stx+i, sty+i, 1.2, 0, Math.PI*2, true); 
-           ctx.arc(stx+i, sty-i, 1.2, 0, Math.PI*2, true);
-           ctx.arc(stx-i, sty+i, 1.2, 0, Math.PI*2, true); 
-           ctx.arc(stx-i, sty-i,1.2, 0, Math.PI*2, true);
-           ctx.arc(stx+i, sty-i, 1.2, 0, Math.PI*2, true);
-           ctx.arc(stx+i, sty, 1.2, 0, Math.PI*2, true);
-           ctx.arc(stx-i, sty, 1.2, 0, Math.PI*2, true);
-           ctx.arc(stx, sty-i, 1.2, 0, Math.PI*2, true);
-           ctx.arc(stx, sty+i, 1.2, 0, Math.PI*2, true);
-       }
-       ctx.closePath();
+       spray_flag = true
     }
-    function spray_up (event){
-          spray_flag = false;
+    function spray_up(){
+		spray_flag=false;
     }
     function spray_move(event){
-          if(spray_flag) {
-             ex = event.x;
-             ey = event.y;
-             for(var i=0; i< 20; i++){
-                 ctx.fillRect(ex+i,ey+i,1,1);
-                 ctx.fillRect(ex-i,ey-i,1,1);
-                 ctx.fillRect(ex-i,ey+i,1,1);
-                 ctx.fillRect(ex+i,ey-i,1,1);
-                 ctx.fillRect(ex+i,ey,1,1);
-                 ctx.fillRect(ex,ey+i,1,1);                     
-                 ctx.fillRect(ex,ey-i,1,1);
-                 ctx.fillRect(ex-i,ey,1,1);
-              }
-              ctx.beginPath();
-              for(var i=0; i<15;i++){
-                 ctx.arc(ex+i,ey+i,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex+i,ey-i,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex-i,ey+i,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex-i,ey-i,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex+i,ey,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex-i,ey,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex,ey+i,1.2,0,Math.PI*2,true);
-                 ctx.arc(ex,ey-i,1.2,0,Math.PI*2,true);
-              }          
-          }
-          ctx.closePath();
-          ctx.fill()
-      }
-}
+	   if (spray_flag){
+		newX= event.x; 
+		newY= event.y;
+		widthX=newX-stx;
+		widthY=newY-sty;
+		
+		var len = 5 + ( Math.random() * 5 | 0 );
+
+    		for( var i = 0; i < len; ++i ) {
+   		
+			ctx.beginPath();
+			var radius=Math.sqrt(widthX*widthX+widthY*widthY)/2;
+		
+			ctx.arc(
+	 	        stx + Math.cos( Math.random() * Math.PI * 2 ) * radius * Math.random(),
+	 	        sty + Math.sin( Math.random() * Math.PI * 2 ) * radius * Math.random(),
+	 	        1,0, Math.PI * 2, false);   		
+		
+			ctx.stroke();
+   			ctx.closePath();
+   			stx=newX;
+   			sty=newY;
+		}	 
+      	   }
+       }
+    }
+    
 function eraser(){
-    /* c.addEventListener("mouseup",eraser_up,false);
-     c.addEventListener("mousemove",eraser_move,false);
-     c.addEventListener("mousedown",eraser_down,false);*/
      c.onmouseup = eraser_up;
      c.onmousedown = eraser_down;
      c.onmousemove = eraser_move 
-    // var eraser_flag;
      function eraser_down(event){
           eraser_flag = true;
      }
